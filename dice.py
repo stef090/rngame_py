@@ -15,19 +15,29 @@ class DiceGame(object):
         def __init__(self):
             dice1 = Dice()
             dice2 = Dice()
+            self.score = {'player': 0,
+                          'computer': 0}
             self.startGame(dice1, dice2)
 
         def check_input(self, text):
-            '''Check input and return state'''    
-            return True
+            states = {'N': False,
+                      'Y': True}    
+            return states.get(text)
         
         def startGame(self, dice1, dice2):
             run = 1
+            print("Welcome to Dice!")
             while run:
-                run_prompt = input("Welcome to Dice!\n"
-                                   "Would you like to throw dice? Y\\N: ")
-                if run_prompt.upper() == 'N':
-                        return False
+                run_prompt = ''
+                while run_prompt not in ('N','Y'):    
+                    run_prompt = str(input("Would you like to throw dice? (Y\\N)")).upper()
+                if not self.check_input(run_prompt.upper()):
+                    print("The score is: Player "
+                          + str(self.score['player'])
+                          + " : "
+                          + str(self.score['computer'])
+                          + " Computer")    
+                    break
                 dice1.number = random.randrange(0,6)
                 time.sleep(2)
                 print('You threw a ' + str(dice1.number))
@@ -36,8 +46,10 @@ class DiceGame(object):
                 print('Computer threw a ' + str(dice2.number))
         
                 if dice1.number > dice2.number:
+                    self.score['player'] += 1    
                     print('You win!')
                 elif dice1.number < dice2.number:
+                    self.score['computer'] += 1
                     print('You lose! Too bad!')
                 else:
                     print('It\'s a draw!')

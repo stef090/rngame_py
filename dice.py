@@ -56,19 +56,39 @@ class DiceGame(object):
             else:
                 print('It\'s a draw!')
 
-#DiceGame()
+
+class Display(object):
+
+    def __init__(self, master):
+        def yes_button_click(event):
+            play_label["text"] = 'Very well!'
+            print('Very well!')
+        def no_button_click(event):
+            play_label["text"] = 'See you later!'
+            print('See you later!')
+
+        frame_upper = Frame(master)
+        frame_upper.pack()
+        game_label = Label(frame_upper, text='Welcome to Dice!')
+        game_label.pack()
+        frame_lower = Frame(master)
+        frame_lower.pack(side=BOTTOM)
+        play_label = Label(frame_upper, text='Would you like to play dice?', foreground='blue')
+        play_label.pack()
+        player_label = Label(frame_lower, text='Player', foreground='blue', pady=20)
+        computer_label = Label(frame_lower, text='Computer', foreground='red', pady=20)
+        player_label.pack(side=LEFT)
+        computer_label.pack(side=RIGHT)
+        yes_button = Button(frame_upper, text='Yes', fg='blue', padx=5)
+        no_button = Button(frame_upper, text='No', fg='red', padx=5)
+        yes_button.bind("<Button-1>", yes_button_click)
+        no_button.bind("<Button-1>", no_button_click)
+        yes_button.pack(side=LEFT)
+        no_button.pack(side=RIGHT)
+        master.minsize(width=300, height=300)
+        master.mainloop()
+
+
+
 root = Tk()
-frameUpper = Frame(root)
-frameUpper.pack()
-gameLabel = Label(frameUpper, text='Welcome to Dice!')
-gameLabel.pack()
-frameLower = Frame(root)
-frameLower.pack(side=BOTTOM)
-playLabel = Label(frameUpper, text='Would you like to play dice?', foreground='blue')
-playLabel.pack()
-yesButton = Button(frameUpper, text='Yes', fg='blue', padx=5)
-noButton = Button(frameUpper, text='No', fg='red', padx = 5)
-yesButton.pack(side=LEFT)
-noButton.pack(side=RIGHT)
-root.minsize(width=300, height=300)
-root.mainloop()
+Display(root)

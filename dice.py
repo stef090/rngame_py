@@ -10,11 +10,6 @@ class DiceGame(object):
         self.score = {'player': 0,
                       'computer': 0}
 
-    def check_input(self, text):
-        states = {'N': False,
-                  'Y': True}
-        return states.get(text)
-
     def throw_dice(self):
         print("Dice thrown!")
         dice_player = random.randrange(0, 6)
@@ -40,7 +35,6 @@ class Display(object):
             computer_dice_label["text"] += str(result[1])
             player_label["text"] += str(result[2]["player"])
             computer_label["text"] += str(result[2]["computer"])
-
 
         def no_button_click(event):
             play_label["text"] = 'See you later!'
